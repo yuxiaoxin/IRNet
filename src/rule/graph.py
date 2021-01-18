@@ -8,12 +8,13 @@
 # @File    : utils.py
 # @Software: PyCharm
 """
-
+# collections用来自定义一些集合，deque是便于修改的元组namedtuple是可以自己命名的元组
 from collections import deque, namedtuple
 
 
 # we'll use infinity as a default distance to nodes.
 inf = float('inf')
+#namedtuple里的Edge是自定义的集合的名字，后面三个是元组的三个元素，
 Edge = namedtuple('Edge', 'start, end, cost')
 
 
@@ -24,6 +25,7 @@ def make_edge(start, end, cost=1):
 class Graph:
     def __init__(self, edges):
         # let's check that the data is right
+        # edges里的边长度只能是2或3
         wrong_edges = [i for i in edges if len(i) not in [2, 3]]
         if wrong_edges:
             raise ValueError('Wrong edges data: {}'.format(wrong_edges))
