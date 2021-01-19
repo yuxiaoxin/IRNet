@@ -31,7 +31,12 @@ class Graph:
             raise ValueError('Wrong edges data: {}'.format(wrong_edges))
 
         self.edges = [make_edge(*edge) for edge in edges]
-
+    
+    #@property装饰器就是负责把一个方法变成属性，这样的属性可以很好的进行必要的检查
+    #现在vertices看着是一个方法，但@property已经将其变成了属性，定义Graph对象时可以直接给它赋vertices这个属性的值
+    #没有下面这样给属性vertices赋值的函数，说明vertices是一个只读的属性，不能在修改
+    #@score.setter
+    #def vertices(self, value):
     @property
     def vertices(self):
         return set(
