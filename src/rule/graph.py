@@ -17,7 +17,7 @@ inf = float('inf')
 #namedtuple里的Edge是自定义的集合的名字，后面三个是元组的三个元素，
 Edge = namedtuple('Edge', 'start, end, cost')
 
-
+#创建边集，有边则距离都为1，为了使用迪杰斯特拉算法
 def make_edge(start, end, cost=1):
     return Edge(start, end, cost)
 
@@ -35,8 +35,9 @@ class Graph:
     #@property装饰器就是负责把一个方法变成属性，这样的属性可以很好的进行必要的检查
     #现在vertices看着是一个方法，但@property已经将其变成了属性，定义Graph对象时可以直接给它赋vertices这个属性的值
     #没有下面这样给属性vertices赋值的函数，说明vertices是一个只读的属性，不能在修改
-    #@score.setter
-    #def vertices(self, value):
+    # @score.setter
+    # def vertices(self, value):
+    # 顶点集里是边的两端这样的节点对
     @property
     def vertices(self):
         return set(
@@ -47,6 +48,7 @@ class Graph:
             )
         )
 
+    # both_ends是否两端都有边
     def get_node_pairs(self, n1, n2, both_ends=True):
         if both_ends:
             node_pairs = [[n1, n2], [n2, n1]]
@@ -54,8 +56,10 @@ class Graph:
             node_pairs = [[n1, n2]]
         return node_pairs
 
+    # 将每条边两端的结点加入节点对数组node_pairs中
     def remove_edge(self, n1, n2, both_ends=True):
         node_pairs = self.get_node_pairs(n1, n2, both_ends)
+        #[:]表示复制一个数组，而不是在初始的edges上做修改
         edges = self.edges[:]
         for edge in edges:
             if [edge.start, edge.end] in node_pairs:
@@ -69,8 +73,10 @@ class Graph:
 
         self.edges.append(Edge(start=n1, end=n2, cost=cost))
         if both_ends:
+            # 普通元组无法修改，但通过collections定义的数组可以
             self.edges.append(Edge(start=n2, end=n1, cost=cost))
 
+    # 通过边来寻找一个顶点的所有邻居
     @property
     def neighbours(self):
         neighbours = {vertex: set() for vertex in self.vertices}
@@ -80,6 +86,7 @@ class Graph:
         return neighbours
 
     def dijkstra(self, source, dest):
+        # assert expression如果expression表达式没有报错则跳过，否则报错AssertionError
         assert source in self.vertices, 'Such source node doesn\'t exist'
         assert dest in self.vertices, 'Such source node doesn\'t exis'
 
