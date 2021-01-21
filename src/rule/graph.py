@@ -8,7 +8,7 @@
 # @File    : utils.py
 # @Software: PyCharm
 """
-# collections用来自定义一些集合，deque是便于修改的元组namedtuple是可以自己命名的元组
+# collections用来自定义一些集合，deque是便于修改的元组namedtuple是可以自己命名且指定参数的元组
 from collections import deque, namedtuple
 
 
@@ -23,6 +23,8 @@ def make_edge(start, end, cost=1):
 
 
 class Graph:
+    # 类的初始化函数（Java的构造函数），在一个实例初始化时调用__init__
+    # self是要创建的实例本身，edges是创建实例是要传入的参数
     def __init__(self, edges):
         # let's check that the data is right
         # edges里的边长度只能是2或3
@@ -37,7 +39,7 @@ class Graph:
     #没有下面这样给属性vertices赋值的函数，说明vertices是一个只读的属性，不能在修改
     # @score.setter
     # def vertices(self, value):
-    # 顶点集里是边的两端这样的节点对
+    # 顶点集是通过传入的边集edges获取的
     @property
     def vertices(self):
         return set(
@@ -48,7 +50,7 @@ class Graph:
             )
         )
 
-    # both_ends是否两端都有边
+    # both_ends是否两端都有边，两条边则返回两个节点对
     def get_node_pairs(self, n1, n2, both_ends=True):
         if both_ends:
             node_pairs = [[n1, n2], [n2, n1]]
@@ -56,7 +58,7 @@ class Graph:
             node_pairs = [[n1, n2]]
         return node_pairs
 
-    # 将每条边两端的结点加入节点对数组node_pairs中
+    # 判断是否有没加入结点对node_pairs的边？？？
     def remove_edge(self, n1, n2, both_ends=True):
         node_pairs = self.get_node_pairs(n1, n2, both_ends)
         #[:]表示复制一个数组，而不是在初始的edges上做修改
@@ -72,6 +74,7 @@ class Graph:
                 return ValueError('Edge {} {} already exists'.format(n1, n2))
 
         self.edges.append(Edge(start=n1, end=n2, cost=cost))
+        # 如果a到b，b到a都有边，则需要再添加一次
         if both_ends:
             # 普通元组无法修改，但通过collections定义的数组可以
             self.edges.append(Edge(start=n2, end=n1, cost=cost))
