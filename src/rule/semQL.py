@@ -15,6 +15,7 @@ Keywords = ['des', 'asc', 'and', 'or', 'sum', 'min', 'max', 'avg', 'none', '=', 
 
 
 class Grammar(object):
+    # is_sketch是创建实例时需要传入的变量，其他变量不需要传入，只能使用默认值
     def __init__(self, is_sketch=False):
         self.begin = 0
         self.type_id = 0
@@ -65,6 +66,7 @@ class Action(object):
         self.production = None
         self.children = list()
 
+    # is_sketch判断是否是终端节点？？？
     def get_next_action(self, is_sketch=False):
         actions = list()
         for x in self.production.split(' ')[1:]:
@@ -86,6 +88,7 @@ class Action(object):
 
 class Root1(Action):
     def __init__(self, id_c, parent=None):
+        # 把初始化的实例转化为父类的实例
         super(Root1, self).__init__()
         self.parent = parent
         self.id_c = id_c
