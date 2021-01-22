@@ -39,12 +39,14 @@ class Graph:
     #没有下面这样给属性vertices赋值的函数，说明vertices是一个只读的属性，不能在修改
     # @score.setter
     # def vertices(self, value):
-    # 顶点集是通过传入的边集edges获取的
+    # 顶点集是通过传入的边集edges获取的，每个点通过0~n的编号来标识
     @property
     def vertices(self):
         return set(
             # this piece of magic turns ([1,2], [3,4]) into [1, 2, 3, 4]
             # the set above makes it's elements unique.
+            # sum函数sum([0,1,2,3,4], 2)这样的形式是求加和
+            # sum([[1,2], [3,4]], [])结果是把前面的所有元素放在一个列表里面
             sum(
                 ([edge.start, edge.end] for edge in self.edges), []
             )
@@ -82,12 +84,18 @@ class Graph:
     # 通过边来寻找一个顶点的所有邻居
     @property
     def neighbours(self):
+        # vertexs是集合形式的所有点，现在建立一个字典
+        # 键是所有的点，值现在是一个空集合
+        # 集合用{}，元组用()，列表用[]
         neighbours = {vertex: set() for vertex in self.vertices}
+        # 把边的另一端，和边的花费以元组的形式添加到集合里面
         for edge in self.edges:
             neighbours[edge.start].add((edge.end, edge.cost))
 
         return neighbours
 
+    # 迪杰斯特拉算法找点
+    # 给定初始节点source和目标结点dest，找出两者之间的最小路径（以点的元组的形式）
     def dijkstra(self, source, dest):
         # assert expression如果expression表达式没有报错则跳过，否则报错AssertionError
         assert source in self.vertices, 'Such source node doesn\'t exist'
