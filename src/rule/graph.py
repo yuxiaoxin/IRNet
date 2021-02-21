@@ -9,6 +9,7 @@
 # @Software: PyCharm
 """
 # collections用来自定义一些集合，deque是便于修改的元组namedtuple是可以自己命名且指定参数的元组
+# deque在两端操作时间复杂度更小，是双向列表，list类似队列，根据index查询更容易
 from collections import deque, namedtuple
 
 
