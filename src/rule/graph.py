@@ -9,13 +9,14 @@
 # @Software: PyCharm
 """
 # collections用来自定义一些集合，deque是便于修改的元组namedtuple是可以自己命名且指定参数的元组
-# deque在两端操作时间复杂度更小，是双向列表，list类似队列，根据index查询更容易
+# deque在两端操作时间复杂度更小，是双向列表
+# list类似队列，队尾进，对头出。根据index查询更容易
 from collections import deque, namedtuple
 
 
 # we'll use infinity as a default distance to nodes.
 inf = float('inf')
-#namedtuple里的Edge是自定义的集合的名字，后面三个是元组的三个元素，
+# namedtuple类似字典，Edge类似元组的键，后面三个是值，namedtuple就是不可更改的字典
 Edge = namedtuple('Edge', 'start, end, cost')
 
 #创建边集，有边则距离都为1，为了使用迪杰斯特拉算法
