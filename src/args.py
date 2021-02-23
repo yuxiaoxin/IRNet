@@ -79,9 +79,11 @@ def init_arg_parser():
 def init_config(arg_parser):
 #     从命令行转化的参数通过parse_args()获取
     args = arg_parser.parse_args()
+#     manual_seed用来torch每次训练初始化网络的随机数种子固定
     torch.manual_seed(args.seed)
     if args.cuda:
         torch.cuda.manual_seed(args.seed)
     np.random.seed(int(args.seed * 13 / 7))
+#     每次使用int(args.seed)作为参数时，生成的随机数相同
     random.seed(int(args.seed))
     return args
