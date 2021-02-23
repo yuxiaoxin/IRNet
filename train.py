@@ -17,6 +17,7 @@ import traceback
 import os
 import torch
 import torch.optim as optim
+# Tqdm 是一个快速，可扩展的Python进度条，可以在 Python 长循环中添加一个进度提示信息
 import tqdm
 import copy
 
