@@ -10,12 +10,16 @@
 """
 
 import random
+# argparse帮助在命令行界面运行.py文件，帮助程序获取参数，并生成报错，用户手册等信息
 import argparse
 import torch
 import numpy as np
 
 def init_arg_parser():
+    # 使用 argparse 的第一步是创建一个 ArgumentParser 对象（解析器）
+    # 将命令行解析成 Python 数据类型所需的全部信息
     arg_parser = argparse.ArgumentParser()
+    #add_argument指定 ArgumentParser 如何获取命令行字符串并将其转换为对象
     arg_parser.add_argument('--seed', default=5783287, type=int, help='random seed')
     arg_parser.add_argument('--cuda', action='store_true', help='use gpu')
     arg_parser.add_argument('--lr_scheduler', action='store_true', help='use learning rate scheduler')
@@ -73,6 +77,7 @@ def init_arg_parser():
     return arg_parser
 
 def init_config(arg_parser):
+#     从命令行转化的参数通过parse_args()获取
     args = arg_parser.parse_args()
     torch.manual_seed(args.seed)
     if args.cuda:
