@@ -13,7 +13,10 @@ import os
 import json
 import argparse
 import re as regex
+# 使用nltk的词形还原工具需要指定pos 参数即词性（动名词，过去式等）
 from nltk.stem import WordNetLemmatizer
+# lemma词元
+pattern是包含NLP，NL，CV等各种内容的强大库，pattern.en是专为NLP英文的自然语言处理的
 from pattern.en import lemma
 wordnet_lemmatizer = WordNetLemmatizer()
 
