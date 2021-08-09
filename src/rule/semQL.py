@@ -15,7 +15,7 @@ Keywords = ['des', 'asc', 'and', 'or', 'sum', 'min', 'max', 'avg', 'none', '=', 
 
 
 class Grammar(object):
-    # is_sketch是创建实例时可以传入的变量，其他变量不能传入，只能使用默认值
+    # is_sketch是创建实例时必须传入的变量，其他变量可以使用默认值
     def __init__(self, is_sketch=False):
         self.begin = 0
         self.type_id = 0
